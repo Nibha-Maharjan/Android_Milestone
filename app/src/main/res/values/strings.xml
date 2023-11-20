@@ -2,4 +2,9 @@
     <string name="app_name">NibhaMaharjan_MAPD711_Assignment4</string>
     <string name="user_name">Username</string>
     <string name="pass_word">Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="postal_code">Postal Code</string>
 </resources>
