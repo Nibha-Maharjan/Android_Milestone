@@ -5,13 +5,51 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import com.example.nibhamaharjan_mapd711_assignment4.DAO.CustomerDao
+import com.example.nibhamaharjan_mapd711_assignment4.db.PizzaDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var database: PizzaDatabase
+    private lateinit var customerDao: CustomerDao
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        database = PizzaDatabase.getDatabase(this)
+        customerDao = database.customerDao()
+
+        val buttonLogin = findViewById<Button>(R.id.button)
+        buttonLogin.setOnClickListener {
+            val username = findViewById<EditText>(R.id.editTextText).text.toString()
+            val password = findViewById<EditText>(R.id.editTextText2).text.toString()
+
+            // Validate credentials
+            lifecycleScope.launch(Dispatchers.IO) {
+                val customer = customerDao.getCustomer(username, password)
+                if (customer != null) {
+                    // Successful login
+                    runOnUiThread {
+                        Toast.makeText(this@MainActivity, "Login successful!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@MainActivity, CustomerHomePage::class.java))
+                    }
+                } else {
+                    // Invalid credentials
+                    runOnUiThread {
+                        Toast.makeText(this@MainActivity, "Invalid username or password", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+
         val cus_regis= findViewById(R.id.textView5) as TextView
         cus_regis.setOnClickListener {
             startActivity(Intent(this, CustomerRegister::class.java))
