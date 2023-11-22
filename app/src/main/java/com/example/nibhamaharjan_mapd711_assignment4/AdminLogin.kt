@@ -5,61 +5,61 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.example.nibhamaharjan_mapd711_assignment4.DAO.CustomerDao
+import com.example.nibhamaharjan_mapd711_assignment4.DAO.AdminDao
 import com.example.nibhamaharjan_mapd711_assignment4.db.PizzaDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class AdminLogin : AppCompatActivity() {
 
     private lateinit var database: PizzaDatabase
-    private lateinit var customerDao: CustomerDao
+    private lateinit var adminDao: AdminDao
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_admin_login)
 
         database = PizzaDatabase.getDatabase(this)
-        customerDao = database.customerDao()
+        adminDao = database.adminDao()
 
-        val buttonLogin = findViewById<Button>(R.id.button)
+        val buttonLogin = findViewById<Button>(R.id.button2)
         buttonLogin.setOnClickListener {
-            val username = findViewById<EditText>(R.id.editTextText).text.toString()
-            val password = findViewById<EditText>(R.id.editTextText2).text.toString()
+            val username = findViewById<EditText>(R.id.editTextText3).text.toString()
+            val password = findViewById<EditText>(R.id.editTextText4).text.toString()
 
-
-            // Validate credentials
+            // Validate admin credentials
             lifecycleScope.launch(Dispatchers.IO) {
-                val customer = customerDao.getCustomer(username, password)
-                if (customer != null) {
+                val admin = adminDao.getAdmin(username,password)
+                if (admin != null && admin.password == password) {
                     // Successful login
                     runOnUiThread {
-                        Toast.makeText(this@MainActivity, "Login successful!", Toast.LENGTH_SHORT).show()
-                        saveUsernameToSharedPreferences(username)
-                        startActivity(Intent(this@MainActivity, CustomerHomePage::class.java))
+                        Toast.makeText(this@AdminLogin, "Admin Login successful!", Toast.LENGTH_SHORT).show()
+                        saveAdminUsernameToSharedPreferences(username)
+                        startActivity(Intent(this@AdminLogin, AdminHomePage::class.java))
                         finish()
                     }
                 } else {
-                    // Invalid credentials
+                    // Invalid credentials or admin doesn't exist
                     runOnUiThread {
-                        Toast.makeText(this@MainActivity, "Invalid username or password", Toast.LENGTH_SHORT).show()
-
+                        Toast.makeText(this@AdminLogin, "Invalid username or password", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
 
-
-        val cus_regis= findViewById(R.id.textView5) as TextView
-        cus_regis.setOnClickListener {
-            startActivity(Intent(this, CustomerRegister::class.java))
+        val admin_regis= findViewById(R.id.textView8) as TextView
+        admin_regis.setOnClickListener {
+            startActivity(Intent(this, AdminRegister::class.java))
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.login_menu,menu)
         return true
@@ -82,10 +82,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         return true
     }
-    private fun saveUsernameToSharedPreferences(username: String) {
-        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+    private fun saveAdminUsernameToSharedPreferences(username: String) {
+        val sharedPreferences = getSharedPreferences("AdminPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("username", username)
+        editor.putString("admin_username", username)
         editor.apply()
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/customer_menu"
+        android:title="Customer Login"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/admin_menu"
+        android:title="Admin Login"
+        app:showAsAction="never"/>
+
+</menu>
