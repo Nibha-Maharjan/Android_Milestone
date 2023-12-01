@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
-                android:hint="@string/user_name"/>
+                android:hint=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +81,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
-                android:hint="@string/pass_word"/>
+                android:hint=""/>
         </LinearLayout>
 
         <Button
