@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/admin_home"
+        android:title="Add Pizza"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/update_order"
+        android:title="Update Order"
+        app:showAsAction="never"/>
+</menu>

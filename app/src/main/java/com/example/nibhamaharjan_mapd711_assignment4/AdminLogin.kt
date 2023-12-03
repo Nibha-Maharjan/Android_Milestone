@@ -18,42 +18,46 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AdminLogin : AppCompatActivity() {
-
+    //database init
     private lateinit var database: PizzaDatabase
     private lateinit var adminDao: AdminDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_login)
-
+        //define database
         database = PizzaDatabase.getDatabase(this)
         adminDao = database.adminDao()
-
+        //button onclick action
         val buttonLogin = findViewById<Button>(R.id.button2)
         buttonLogin.setOnClickListener {
             val username = findViewById<EditText>(R.id.editTextText3).text.toString()
             val password = findViewById<EditText>(R.id.editTextText4).text.toString()
 
-            // Validate admin credentials
+            // check signin
             lifecycleScope.launch(Dispatchers.IO) {
                 val admin = adminDao.getAdmin(username,password)
                 if (admin != null && admin.password == password) {
-                    // Successful login
+                    // Success
                     runOnUiThread {
                         Toast.makeText(this@AdminLogin, "Admin Login successful!", Toast.LENGTH_SHORT).show()
-                        saveAdminUsernameToSharedPreferences(username)
+                        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("admin_username", username)
+                        editor.putLong("employeeId", admin.employeeId)
+                        editor.apply()
                         startActivity(Intent(this@AdminLogin, AdminHomePage::class.java))
                         finish()
                     }
                 } else {
-                    // Invalid credentials or admin doesn't exist
+                    // failed
                     runOnUiThread {
                         Toast.makeText(this@AdminLogin, "Invalid username or password", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
-
+        //change to admin registration
         val admin_regis= findViewById(R.id.textView8) as TextView
         admin_regis.setOnClickListener {
             startActivity(Intent(this, AdminRegister::class.java))
@@ -83,9 +87,6 @@ class AdminLogin : AppCompatActivity() {
         return true
     }
     private fun saveAdminUsernameToSharedPreferences(username: String) {
-        val sharedPreferences = getSharedPreferences("AdminPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("admin_username", username)
-        editor.apply()
+
     }
 }

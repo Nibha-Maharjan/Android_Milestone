@@ -9,8 +9,8 @@ data class Order(
     val orderId: Long = 0L,
     val customerId: Long,
     val productId: Long,
-    val employeeId: Long,
+    var employeeId: Long,
     val orderDate: String,
     val quantity: Int,
-    val status: String
+    var status: String
 )

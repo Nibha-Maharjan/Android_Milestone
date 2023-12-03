@@ -22,18 +22,18 @@ import kotlinx.coroutines.launch
 
 class EditProfile : AppCompatActivity() {
 
-
+    //database init
     private lateinit var database: PizzaDatabase
     private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
-
+        //database and sharedpref define
         database = PizzaDatabase.getDatabase(this)
         sharedPrefs = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
 
-
+        //update button setonclick action
         val updateButton = findViewById<Button>(R.id.button3cus)
         updateButton.setOnClickListener {
             val userNameEditText = findViewById<EditText>(R.id.editTextText12cus)
@@ -53,13 +53,14 @@ class EditProfile : AppCompatActivity() {
             val updatedCity = cityEditText.text.toString()
             val updatedPostalCode = postalCodeEditText.text.toString()
 
-            Log.d("UserProfileUpdate", "Updated Username: $updatedUserName")
-            Log.d("UserProfileUpdate", "Updated Password: $updatedPassword")
-            Log.d("UserProfileUpdate", "Updated First Name: $updatedFirstName")
-            Log.d("UserProfileUpdate", "Updated Last Name: $updatedLastName")
-            Log.d("UserProfileUpdate", "Updated Address: $updatedAddress")
-            Log.d("UserProfileUpdate", "Updated City: $updatedCity")
-            Log.d("UserProfileUpdate", "Updated Postal Code: $updatedPostalCode")
+            //Checking if data is being passed
+//            Log.d("UserProfileUpdate", "Updated Username: $updatedUserName")
+//            Log.d("UserProfileUpdate", "Updated Password: $updatedPassword")
+//            Log.d("UserProfileUpdate", "Updated First Name: $updatedFirstName")
+//            Log.d("UserProfileUpdate", "Updated Last Name: $updatedLastName")
+//            Log.d("UserProfileUpdate", "Updated Address: $updatedAddress")
+//            Log.d("UserProfileUpdate", "Updated City: $updatedCity")
+//            Log.d("UserProfileUpdate", "Updated Postal Code: $updatedPostalCode")
 
 
             val updatedCustomer = Customer(
@@ -72,11 +73,12 @@ class EditProfile : AppCompatActivity() {
                 city = updatedCity,
                 postalCode = updatedPostalCode
             )
-
+            //Updating customer table
             insertCustomer(updatedCustomer)
         }
     }
 
+    //writing the data
     private fun insertCustomer(customer: Customer) {
         lifecycleScope.launch(Dispatchers.IO) {
             database.customerDao().updateCustomer(customer)
@@ -87,50 +89,6 @@ class EditProfile : AppCompatActivity() {
         finish()
     }
 
-    //private fun updateUserProfile() {
-//        val userNameEditText = findViewById<EditText>(R.id.editTextText12cus)
-//        val passwordEditText = findViewById<EditText>(R.id.editTextText13cus)
-//        val firstNameEditText = findViewById<EditText>(R.id.editTextText14cus)
-//        val lastNameEditText = findViewById<EditText>(R.id.editTextText15cus)
-//        val addressEditText = findViewById<EditText>(R.id.editTextText17cus)
-//        val cityEditText = findViewById<EditText>(R.id.editTextText18cus)
-//        val postalCodeEditText = findViewById<EditText>(R.id.editTextText19cus)
-//
-//        val updatedUserName = userNameEditText.text.toString()
-//        val updatedPassword = passwordEditText.text.toString()
-//        val updatedFirstName = firstNameEditText.text.toString()
-//        val updatedLastName = lastNameEditText.text.toString()
-//        val updatedAddress = addressEditText.text.toString()
-//        val updatedCity = cityEditText.text.toString()
-//        val updatedPostalCode = postalCodeEditText.text.toString()
-//
-//        Log.d("UserProfileUpdate", "Updated Username: $updatedUserName")
-//        Log.d("UserProfileUpdate", "Updated Password: $updatedPassword")
-//        Log.d("UserProfileUpdate", "Updated First Name: $updatedFirstName")
-//        Log.d("UserProfileUpdate", "Updated Last Name: $updatedLastName")
-//        Log.d("UserProfileUpdate", "Updated Address: $updatedAddress")
-//        Log.d("UserProfileUpdate", "Updated City: $updatedCity")
-//        Log.d("UserProfileUpdate", "Updated Postal Code: $updatedPostalCode")
-//
-//
-//        val updatedCustomer = Customer(
-//            userName = updatedUserName,
-//            password = updatedPassword,
-//            firstName = updatedFirstName,
-//            lastName = updatedLastName,
-//            address = updatedAddress,
-//            city = updatedCity,
-//            postalCode = updatedPostalCode
-//        )
-
-//        GlobalScope.launch(Dispatchers.IO) {
-//            database.customerDao().updateCustomer(updatedCustomer)
-//            runOnUiThread {
-//                Toast.makeText(this@EditProfile, "Profile updated successfully", Toast.LENGTH_SHORT).show()
-//            }
-//            finish()
-//        }
-    //}
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.customer_menu,menu)
         return true

@@ -16,14 +16,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AdminRegister : AppCompatActivity() {
+    //database init
     private lateinit var database: PizzaDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_register)
 
-
+        //database define
         database = PizzaDatabase.getDatabase(this)
-
+        //register button onclick action
         val buttonRegister = findViewById<Button>(R.id.button4)
         buttonRegister.setOnClickListener {
             val username = findViewById<EditText>(R.id.editTextText5).text.toString()
@@ -37,11 +38,11 @@ class AdminRegister : AppCompatActivity() {
                 firstName = firstName,
                 lastName = lastName
             )
-
+            //save into database
             insertAdmin(newAdmin)
         }
         val admin_log= findViewById(R.id.textView20) as TextView
-
+        //change to login
         admin_log.setOnClickListener {
             startActivity(Intent(this, AdminLogin::class.java))
         }
@@ -51,9 +52,9 @@ class AdminRegister : AppCompatActivity() {
             database.adminDao().insertAdmin(admin)
         }
         Toast.makeText(this, "Admin registered successfully!", Toast.LENGTH_SHORT).show()
-        // Redirect to login or another appropriate screen
+        // change to login after success
         startActivity(Intent(this, AdminLogin::class.java))
-        finish() // Finish this activity to prevent going back to registration with back button
+        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

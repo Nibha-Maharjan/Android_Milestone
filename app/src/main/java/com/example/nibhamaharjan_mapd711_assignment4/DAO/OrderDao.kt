@@ -24,4 +24,6 @@ interface OrderDao {
     @Delete
     suspend fun deleteOrder(order: Order)
     // Other necessary queries for order operations
+    @Query("SELECT * FROM `order`")
+    suspend fun getAllOrders(): List<Order>
 }

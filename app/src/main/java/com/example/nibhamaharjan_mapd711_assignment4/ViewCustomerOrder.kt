@@ -1,5 +1,6 @@
 package com.example.nibhamaharjan_mapd711_assignment4
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -22,6 +23,7 @@ class ViewCustomerOrder : AppCompatActivity() {
     private lateinit var adapter: OrderAdapter
     private lateinit var sharedPrefs: SharedPreferences
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_customer_order)

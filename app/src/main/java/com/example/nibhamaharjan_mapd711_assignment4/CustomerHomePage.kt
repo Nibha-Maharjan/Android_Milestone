@@ -20,19 +20,21 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CustomerHomePage : AppCompatActivity() {
+    //init sharedpref and db
     private lateinit var sharedPrefs: SharedPreferences
     private lateinit var database: PizzaDatabase
     private lateinit var pizzaDao: PizzaDao
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_home_page)
-
+        //define db
         database = PizzaDatabase.getDatabase(this)
         pizzaDao = database.pizzaDao()
 
-        // Fetch pizzas and display them in RecyclerView
+        // fetch pizza and show in recycler view
         displayPizzas()
     }
+    //order button click intent send data to another screen
     private fun orderPizza(pizza: Pizza) {
         val intent = Intent(this@CustomerHomePage, OrderScreen::class.java)
         intent.putExtra("pizzaId", pizza.pizzaId.toString())
@@ -44,6 +46,7 @@ class CustomerHomePage : AppCompatActivity() {
         Toast.makeText(this@CustomerHomePage, "Ordered: ${pizza.pizzaName}", Toast.LENGTH_SHORT).show()
 
     }
+    //display pizza
     private fun displayPizzas() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)

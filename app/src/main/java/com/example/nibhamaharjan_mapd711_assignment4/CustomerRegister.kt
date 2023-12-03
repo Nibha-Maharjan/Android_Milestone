@@ -16,19 +16,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CustomerRegister : AppCompatActivity() {
-
+    //db init
     private lateinit var database: PizzaDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_register)
+        //Login screen
         val cus_log= findViewById(R.id.textView10) as TextView
         cus_log.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
-
+        //db define
         database = PizzaDatabase.getDatabase(this)
-
+        //setonclick action
         val button3 = findViewById<Button>(R.id.button3)
         button3.setOnClickListener {
             val userName = findViewById<EditText>(R.id.editTextText12).text.toString()
@@ -48,17 +49,16 @@ class CustomerRegister : AppCompatActivity() {
                 city = city,
                 postalCode = postalCode
             )
-
+            //write newcustomer data in database
             insertCustomer(newCustomer)
         }
     }
-
+    //take customer data and put in db
     private fun insertCustomer(customer: Customer) {
         lifecycleScope.launch(Dispatchers.IO) {
             database.customerDao().insertCustomer(customer)
         }
         Toast.makeText(this, "Customer registered successfully!", Toast.LENGTH_SHORT).show()
-        // Redirect to login or another appropriate screen
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
