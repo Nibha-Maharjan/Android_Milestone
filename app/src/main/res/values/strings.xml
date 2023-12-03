@@ -7,4 +7,12 @@
     <string name="address">Address</string>
     <string name="city">City</string>
     <string name="postal_code">Postal Code</string>
+    <string-array name="quantity">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
 </resources>

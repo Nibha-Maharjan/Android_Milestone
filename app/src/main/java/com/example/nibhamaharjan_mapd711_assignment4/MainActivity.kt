@@ -39,13 +39,18 @@ class MainActivity : AppCompatActivity() {
                 if (customer != null) {
                     // Successful login
                     runOnUiThread {
-                        Toast.makeText(this@MainActivity, "Login successful!", Toast.LENGTH_SHORT).show()
-                        saveUsernameToSharedPreferences(username)
+                        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("username", username)
+                        editor.putLong("customerId", customer.customerId)
+                        editor.apply()
                         startActivity(Intent(this@MainActivity, CustomerHomePage::class.java))
+                        Toast.makeText(this@MainActivity, "Login successful! $username", Toast.LENGTH_SHORT).show()
+
                         finish()
                     }
                 } else {
-                    // Invalid credentials
+                    // Invalizd credentials
                     runOnUiThread {
                         Toast.makeText(this@MainActivity, "Invalid username or password", Toast.LENGTH_SHORT).show()
 
@@ -83,9 +88,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
     private fun saveUsernameToSharedPreferences(username: String) {
-        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("username", username)
-        editor.apply()
+
     }
 }
