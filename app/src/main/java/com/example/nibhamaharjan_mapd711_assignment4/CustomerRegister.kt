@@ -22,6 +22,7 @@ class CustomerRegister : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_register)
+        title = "Customer Register"
         //Login screen
         val cus_log= findViewById(R.id.textView10) as TextView
         cus_log.setOnClickListener {

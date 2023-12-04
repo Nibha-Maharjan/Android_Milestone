@@ -27,7 +27,7 @@ class ViewCustomerOrder : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_customer_order)
-
+        title = "View Orders"
         orderDao = PizzaDatabase.getDatabase(this).orderDao()
         recyclerView = findViewById(R.id.recyclerView1)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -43,6 +43,10 @@ class ViewCustomerOrder : AppCompatActivity() {
                     recyclerView.adapter = adapter
                 }
             }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.customer_menu,menu)
+        return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val intent: Intent = when (item.itemId) {

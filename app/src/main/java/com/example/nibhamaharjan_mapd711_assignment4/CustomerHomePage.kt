@@ -27,6 +27,7 @@ class CustomerHomePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer_home_page)
+        title = "Customer Homepage"
         //define db
         database = PizzaDatabase.getDatabase(this)
         pizzaDao = database.pizzaDao()

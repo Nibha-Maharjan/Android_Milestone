@@ -23,6 +23,7 @@ class AdminUpdateOrder : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_update_order)
+        title = "Update Order"
         //db define
         database = PizzaDatabase.getDatabase(this)
         orderDao = database.orderDao()

@@ -20,6 +20,7 @@ class AdminHomePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_home_page)
+        title = "Admin Homepage"
         //define database
         database = PizzaDatabase.getDatabase(this)
         //button onclick action

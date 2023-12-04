@@ -25,6 +25,7 @@ class AdminLogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_login)
+        title = "Admin Login"
         //define database
         database = PizzaDatabase.getDatabase(this)
         adminDao = database.adminDao()

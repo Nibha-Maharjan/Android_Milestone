@@ -21,7 +21,7 @@ class AdminRegister : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_register)
-
+        title = "Admin Register"
         //database define
         database = PizzaDatabase.getDatabase(this)
         //register button onclick action

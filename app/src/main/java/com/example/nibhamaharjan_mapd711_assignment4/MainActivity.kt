@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        title = "Customer Login"
         //Defining database
         database = PizzaDatabase.getDatabase(this)
         customerDao = database.customerDao()

@@ -29,6 +29,7 @@ class EditProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
+        title = "Edit Profile"
         //database and sharedpref define
         database = PizzaDatabase.getDatabase(this)
         sharedPrefs = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)

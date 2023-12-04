@@ -38,6 +38,7 @@
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_order_screen)
+            title = "Order"
             //define
             orderDao = PizzaDatabase.getDatabase(this).orderDao()
 
