@@ -56,6 +56,10 @@ class AdminHomePage : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val intent: Intent = when (item.itemId) {
+            R.id.logout_adm -> {
+                Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT).show()
+                Intent(this, AdminLogin::class.java)
+            }
             R.id.admin_home -> {
                 Toast.makeText(this, "Add new Pizza", Toast.LENGTH_SHORT).show()
                 Intent(this, AdminHomePage::class.java)

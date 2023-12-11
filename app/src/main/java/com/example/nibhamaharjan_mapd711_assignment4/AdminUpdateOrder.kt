@@ -1,10 +1,13 @@
 package com.example.nibhamaharjan_mapd711_assignment4
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +66,32 @@ class AdminUpdateOrder : AppCompatActivity() {
                 recyclerView.adapter = adapter
             }
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.admin_menu,menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent: Intent = when (item.itemId) {
+            R.id.logout_adm -> {
+                Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT).show()
+                Intent(this, AdminLogin::class.java)
+            }
+            R.id.admin_home -> {
+                Toast.makeText(this, "Add new Pizza", Toast.LENGTH_SHORT).show()
+                Intent(this, AdminHomePage::class.java)
+            }
+            R.id.update_order -> {
+                Toast.makeText(this, "Update Order", Toast.LENGTH_SHORT).show()
+                Intent(this, AdminUpdateOrder::class.java)
+            }
+
+            else -> {
+                return super.onOptionsItemSelected(item)
+            }
+        }
+        startActivity(intent)
+        return true
     }
 
 }

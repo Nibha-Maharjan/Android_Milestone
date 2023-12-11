@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminLogin">
+    tools:context=".AdminLogin"
+    android:background="@color/admin">
 
     <TextView
         android:layout_width="169dp"
@@ -16,7 +17,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049" />
+        app:layout_constraintVertical_bias="0.048" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="170dp"
+        android:layout_height="145dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.131"
+        app:srcCompat="@drawable/firefly_pizza_app_mobile_logo_for_centennial_pizza_61242" />
+
 
     <LinearLayout
         android:layout_width="403dp"
@@ -25,7 +38,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.849">
 
         <TextView
             android:id="@+id/textView7"
@@ -35,6 +49,7 @@
             android:text="Admin Login"
             android:textAlignment="center"
             android:textSize="24sp"  />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,8 +95,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="text"
-                android:text="" />
+                android:inputType="textPassword"
+                android:text=""
+                />
         </LinearLayout>
 
         <Button

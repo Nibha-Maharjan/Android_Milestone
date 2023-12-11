@@ -2,6 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/logout_cus"
+        android:title="Logout"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/customer_home"
         android:title="Customer Homepage"
         app:showAsAction="never"/>
@@ -12,6 +16,10 @@
     <item
         android:id="@+id/view_order"
         android:title="View Order"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/map"
+        android:title="Map"
         app:showAsAction="never"/>
 
 </menu>

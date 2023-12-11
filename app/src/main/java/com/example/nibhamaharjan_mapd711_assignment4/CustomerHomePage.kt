@@ -66,6 +66,10 @@ class CustomerHomePage : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val intent: Intent = when (item.itemId) {
+            R.id.logout_cus -> {
+                Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT).show()
+                Intent(this, MainActivity::class.java)
+            }
             R.id.customer_home -> {
                 Toast.makeText(this, "Customer Home", Toast.LENGTH_SHORT).show()
                 Intent(this, CustomerHomePage::class.java)
@@ -77,6 +81,10 @@ class CustomerHomePage : AppCompatActivity() {
             R.id.view_order -> {
                 Toast.makeText(this, "View Your Order", Toast.LENGTH_SHORT).show()
                 Intent(this, ViewCustomerOrder::class.java)
+            }
+            R.id.map -> {
+                Toast.makeText(this, "Map", Toast.LENGTH_SHORT).show()
+                Intent(this, Map::class.java)
             }
 
             else -> {

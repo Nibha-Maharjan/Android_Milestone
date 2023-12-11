@@ -50,6 +50,10 @@ class ViewCustomerOrder : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val intent: Intent = when (item.itemId) {
+            R.id.logout_cus -> {
+                Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT).show()
+                Intent(this, MainActivity::class.java)
+            }
             R.id.customer_home -> {
                 Toast.makeText(this, "Customer Home", Toast.LENGTH_SHORT).show()
                 Intent(this, CustomerHomePage::class.java)

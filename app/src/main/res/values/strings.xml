@@ -14,5 +14,6 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+    <string name="MAPS_API_KEY">AIzaSyB3tnU5wNSEnNoKVP0b78iKo5SJtXBa6T4</string>
 
 </resources>

@@ -9,6 +9,7 @@
     import android.view.MenuItem
     import android.widget.ArrayAdapter
     import android.widget.Button
+    import android.widget.EditText
     import android.widget.Spinner
     import android.widget.TextView
     import android.widget.Toast
@@ -22,6 +23,7 @@
     import java.util.Calendar
     import java.util.Date
     import java.util.Locale
+    import java.util.regex.Pattern
 
     class OrderScreen : AppCompatActivity() {
 
@@ -48,22 +50,25 @@
             val PizzaPrice = intent.getStringExtra("pizzaPrice")
             val PizzaCategory = intent.getStringExtra("pizzaCategory")
 
-            usrName=findViewById(R.id.textView)
-            pizzName=findViewById(R.id.textView29)
-            pizzPrice=findViewById(R.id.textView30)
-            pizzCat=findViewById(R.id.textView31)
-            orderDate=findViewById(R.id.textView32)
+            usrName = findViewById(R.id.textView)
+            pizzName = findViewById(R.id.textView29)
+            pizzPrice = findViewById(R.id.textView30)
+            pizzCat = findViewById(R.id.textView31)
+            orderDate = findViewById(R.id.textView32)
 
             val calendar = Calendar.getInstance()
-            val orderDateText = "${calendar.get(Calendar.YEAR)}-${calendar.get(Calendar.MONTH) + 1}-${calendar.get(Calendar.DAY_OF_MONTH)}"
+            val orderDateText =
+                "${calendar.get(Calendar.YEAR)}-${calendar.get(Calendar.MONTH) + 1}-${
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                }"
             val pizzaId = intent.getStringExtra("pizzaId")
             val cusID = sharedPrefs.getLong("customerId", 0L)
 
             //updating fields
             usrName.text = "Customer Name : $userName"
-            pizzName.text = "Pizza : "+PizzaName
+            pizzName.text = "Pizza : " + PizzaName
             pizzPrice.text = "Price : $$PizzaPrice"
-            pizzCat.text = "Category : "+ PizzaCategory
+            pizzCat.text = "Category : " + PizzaCategory
 //            pizzName.text = "Pizza ID: $pizzaId"
 //            pizzPrice.text="cus id: $cusID"
             orderDate.text = "Order Date: $orderDateText"
@@ -81,41 +86,60 @@
                 // Apply the adapter to the spinner.
                 spinner.adapter = adapter
             }
+            val cardValidation = findViewById<EditText>(R.id.cardno)
+            val pinValidation = findViewById<EditText>(R.id.cardccv)
             //button setonclick action
             val button = findViewById<Button>(R.id.button6)
             button.setOnClickListener {
-                val pizzaId = intent.getStringExtra("pizzaId") ?: ""
-                val quantitySpinner = findViewById<Spinner>(R.id.spinner)
-                val quantity = quantitySpinner.selectedItem.toString()
-                val cusID = sharedPrefs.getLong("customerId", 0L)
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                val creditCardNumber = cardValidation.text.toString()
+                val pin = pinValidation.text.toString()
+
+                val creditCardPattern = Pattern.compile("^\\d{16}$")
+                val pinPattern = Pattern.compile("^\\d{4}$")
+
+                if (!creditCardPattern.matcher(creditCardNumber).matches() ||
+                    !pinPattern.matcher(pin).matches()
+                ) {
+                    if (!creditCardPattern.matcher(creditCardNumber).matches()) {
+                        cardValidation.error = "Invalid Credit Card Number"
+                    }
+                    if (!pinPattern.matcher(pin).matches()) {
+                        pinValidation.error = "Invalid PIN"
+                    }
+
+                } else {
+                    val pizzaId = intent.getStringExtra("pizzaId") ?: ""
+                    val quantitySpinner = findViewById<Spinner>(R.id.spinner)
+                    val quantity = quantitySpinner.selectedItem.toString()
+                    val cusID = sharedPrefs.getLong("customerId", 0L)
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 
 
-                val order = Order(
-                    customerId = cusID,
-                    productId = pizzaId.toLongOrNull() ?: 0L,
-                    employeeId = -1L, // Set employeeId to 0 for now
-                    orderDate = dateFormat.format(Date())
-                        .toString(), // You can use your desired date logic here
-                    quantity = quantity.toIntOrNull() ?: 1,
-                    status = "Pending"
-                )
-                //Inserting data into order table
-                GlobalScope.launch(Dispatchers.IO) {
-                    orderDao.insertOrder(order)
-                    runOnUiThread {
-                        Toast.makeText(
-                            this@OrderScreen,
-                            "Order placed successfully!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        finish()
+                    val order = Order(
+                        customerId = cusID,
+                        productId = pizzaId.toLongOrNull() ?: 0L,
+                        employeeId = -1L, // Set employeeId to 0 for now
+                        orderDate = dateFormat.format(Date())
+                            .toString(), // You can use your desired date logic here
+                        quantity = quantity.toIntOrNull() ?: 1,
+                        status = "Pending"
+                    )
+                    //Inserting data into order table
+                    GlobalScope.launch(Dispatchers.IO) {
+                        orderDao.insertOrder(order)
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@OrderScreen,
+                                "Order placed successfully!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            finish()
+                        }
                     }
                 }
-
             }
-
         }
+
 
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
             menuInflater.inflate(R.menu.customer_menu,menu)
@@ -123,6 +147,10 @@
         }
         override fun onOptionsItemSelected(item: MenuItem): Boolean {
             val intent: Intent = when (item.itemId) {
+                R.id.logout_cus -> {
+                    Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT).show()
+                    Intent(this, MainActivity::class.java)
+                }
                 R.id.customer_home -> {
                     Toast.makeText(this, "Customer Home", Toast.LENGTH_SHORT).show()
                     Intent(this, CustomerHomePage::class.java)
@@ -144,3 +172,6 @@
             return true
         }
     }
+
+
+
