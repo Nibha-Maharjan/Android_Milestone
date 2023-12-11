@@ -3,8 +3,8 @@
 // Name: Saurav Gautam
 // Student ID: 301286980
 // Date Completed: Dec 3rd 2023
-// App Desc: Pizza for 4th assignment
-// This App stores multiple data in Android room database and performs crud operations
+// App Desc: Pizza for Milestone
+// This App stores shows most of the android development taught throughout our first semester
 package com.example.nibhamaharjan_mapd711_assignment4
 
 import android.content.Context
