@@ -115,7 +115,7 @@ class EditProfile : AppCompatActivity() {
             }
             R.id.map -> {
                 Toast.makeText(this, "Map", Toast.LENGTH_SHORT).show()
-                Intent(this, Map::class.java)
+                Intent(this, com.example.nibhamaharjan_mapd711_assignment4.Map::class.java)
             }
             R.id.topshop -> {
                 Toast.makeText(this, "WebView", Toast.LENGTH_SHORT).show()

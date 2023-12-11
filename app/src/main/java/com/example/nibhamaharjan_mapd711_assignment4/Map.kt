@@ -14,6 +14,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
@@ -77,8 +78,11 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
 //                    val country = address.countryName//Get country
                     val p=i+1
                     val fullAddress = markerTitle
+                    val pizzaLocation = LatLng(43.7852787, -79.2300675)
+                    val markerColor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
                     //Pointer Adding
                     mGoogleMap!!.addMarker(MarkerOptions().position(locationArrayList!![i]).title("Pizza store $p").snippet(fullAddress))
+                    mGoogleMap!!.addMarker(MarkerOptions().position(pizzaLocation).title("Current Location").snippet("Centennial College").icon(markerColor))
                 }
             } catch (e: IOException) {
                 // Error Handling
