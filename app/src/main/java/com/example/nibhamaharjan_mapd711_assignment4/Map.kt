@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlin.collections.Map
 
 class Map : AppCompatActivity(), OnMapReadyCallback {
     private var mGoogleMap: GoogleMap? = null
@@ -115,6 +116,14 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
             R.id.view_order -> {
                 Toast.makeText(this, "View Your Order", Toast.LENGTH_SHORT).show()
                 Intent(this, ViewCustomerOrder::class.java)
+            }
+            R.id.map -> {
+                Toast.makeText(this, "Map", Toast.LENGTH_SHORT).show()
+                Intent(this, Map::class.java)
+            }
+            R.id.topshop -> {
+                Toast.makeText(this, "WebView", Toast.LENGTH_SHORT).show()
+                Intent(this, TopPizzas::class.java)
             }
 
             else -> {

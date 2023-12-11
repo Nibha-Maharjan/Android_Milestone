@@ -21,5 +21,9 @@
         android:id="@+id/map"
         android:title="Map"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/topshop"
+        android:title="Top Pizza Shops"
+        app:showAsAction="never"/>
 
 </menu>

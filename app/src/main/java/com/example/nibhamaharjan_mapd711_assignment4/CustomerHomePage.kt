@@ -86,6 +86,11 @@ class CustomerHomePage : AppCompatActivity() {
                 Toast.makeText(this, "Map", Toast.LENGTH_SHORT).show()
                 Intent(this, Map::class.java)
             }
+            R.id.topshop -> {
+                Toast.makeText(this, "WebView", Toast.LENGTH_SHORT).show()
+                Intent(this, TopPizzas::class.java)
+            }
+
 
             else -> {
                 return super.onOptionsItemSelected(item)

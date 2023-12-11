@@ -1,49 +1,27 @@
 package com.example.nibhamaharjan_mapd711_assignment4
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.webkit.WebView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.nibhamaharjan_mapd711_assignment4.DAO.OrderDao
-import com.example.nibhamaharjan_mapd711_assignment4.db.PizzaDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlin.collections.Map
 
-class ViewCustomerOrder : AppCompatActivity() {
-    private lateinit var orderDao: OrderDao
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: OrderAdapter
-    private lateinit var sharedPrefs: SharedPreferences
-
-    @SuppressLint("SuspiciousIndentation")
+class TopPizzas : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_customer_order)
-        title = "View Orders"
-        orderDao = PizzaDatabase.getDatabase(this).orderDao()
-        recyclerView = findViewById(R.id.recyclerView1)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        setContentView(R.layout.activity_top_pizzas)
+        title = "Web View"
 
-        sharedPrefs = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val customerId = sharedPrefs.getLong("customerId", 0L)
+        val wv = findViewById<View>(R.id.web_content) as WebView
+        //enabling Javascript
+        wv.settings.javaScriptEnabled
 
-
-            GlobalScope.launch(Dispatchers.IO) {
-                val orders = orderDao.getOrdersForCustomer(customerId)
-                runOnUiThread {
-                    adapter = OrderAdapter(orders)
-                    recyclerView.adapter = adapter
-                }
-            }
+        //loading the URL
+        wv.loadUrl("https://www.tastetoronto.com/guides/best-pizza-toronto")
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.customer_menu,menu)
